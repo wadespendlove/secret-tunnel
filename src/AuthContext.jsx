@@ -32,19 +32,20 @@ export function AuthProvider({ children }) {
   // TODO: authenticate
 
   const authenticate = async () => {
-    try {
-      const response = await fetch(API + "/authenticate", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const x = await response.json();
-    } catch (error) {
-      console.error("Error during GET request");
+    if (!token) {
+      throw newError(
+        `GET request failed: ${response.status} ${response.statusText}`
+      );
     }
-    throw error;
+    const response = await fetch(API + "/authenticate", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const x = await response.json();
+    setLocation("TUNNEL");
   };
 
   const value = {

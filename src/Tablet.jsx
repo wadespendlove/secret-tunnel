@@ -34,7 +34,7 @@ export default function Tablet() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          !token ? noToken : setLocation("TUNNEL");
+          !token ? noToken : authenticate();
         }}
       >
         <button>Place your palm upon the tablet.</button>
