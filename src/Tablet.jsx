@@ -1,6 +1,21 @@
+import { useAuth } from "./AuthContext.jsx";
+
 /** Button that attempts to use the token in context when clicked */
 export default function Tablet() {
   // TODO: call authenticate when form is submitted
+  const {
+    setLocation,
+    location,
+    signUp,
+    emailInput,
+    setEmailInput,
+    authenticate,
+    token,
+  } = useAuth();
+
+  const noToken = () => {
+    return console.log("YOU SHALL NOT PASS");
+  };
 
   return (
     <section>
@@ -16,7 +31,12 @@ export default function Tablet() {
       <p>
         It holds out a rectangular stone tablet carved with an intricate design.
       </p>
-      <form>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          !token ? noToken : setLocation("TUNNEL");
+        }}
+      >
         <button>Place your palm upon the tablet.</button>
       </form>
     </section>
